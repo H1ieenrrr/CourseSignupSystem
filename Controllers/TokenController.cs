@@ -15,7 +15,7 @@ using System.Threading.Tasks;
 
 namespace CourseSignupSystem.Controllers
 {
-    [Route("api/[controller]/[action]")]
+    [Route("api/[controller]")]
     [ApiController]
     public class TokenController : ControllerBase
     {
@@ -28,7 +28,7 @@ namespace CourseSignupSystem.Controllers
         }
 
         [HttpPost]
-        [ActionName("Login")]
+        [Route("Login")]
         public async Task<IActionResult> Login(ViewLogin viewLogin)
         {
             if (viewLogin != null && !string.IsNullOrEmpty(viewLogin.UserEmail) && !string.IsNullOrEmpty(viewLogin.UserPassword) ||
@@ -76,7 +76,7 @@ namespace CourseSignupSystem.Controllers
 
 
         [HttpGet]
-        [ActionName("UserEmail")]
+        [Route("UserEmail")]
         public async Task<ActionResult<UserModel>> GetUserEmail(ViewLogin viewLogin)
         {
             var user = await _authentication.GetUserEmail(viewLogin);
@@ -84,7 +84,7 @@ namespace CourseSignupSystem.Controllers
         }
 
         [HttpGet]
-        [ActionName("UserTeacherCode")]
+        [Route("UserTeacherCode")]
         public async Task<ActionResult<UserModel>> GetUserTeacherCode(ViewLogin viewLogin)
         {
             var user = await _authentication.GetUserTeacherCode(viewLogin);
@@ -92,7 +92,7 @@ namespace CourseSignupSystem.Controllers
         }
 
         [HttpGet]
-        [ActionName("UserStudentCode")]
+        [Route("UserStudentCode")]
         public async Task<ActionResult<UserModel>> GetUserStudentCode(ViewLogin viewLogin)
         {
             var user = await _authentication.GetUserStudentCode(viewLogin);
@@ -100,7 +100,7 @@ namespace CourseSignupSystem.Controllers
         }
 
         [HttpPut("{email}")]
-        [ActionName("ChangePassAdmin")]
+        [Route("ChangePassAdmin")]
         public async Task<ActionResult<int>> ChangePass(string email, UserModel userModel)
         {
             if (email != userModel.UserEmail)
@@ -121,7 +121,7 @@ namespace CourseSignupSystem.Controllers
         }
 
         [HttpPut("{teachercode}")]
-        [ActionName("ChangePassTeacher")]
+        [Route("ChangePassTeacher")]
         public async Task<ActionResult<int>> ChangePassTeacherCode(string teachercode, UserModel userModel)
         {
             if (teachercode != userModel.UserTeacherCode)
@@ -142,7 +142,7 @@ namespace CourseSignupSystem.Controllers
         }
 
         [HttpPut("{studentcode}")]
-        [ActionName("ChangePassStudent")]
+        [Route("ChangePassStudent")] 
         public async Task<ActionResult<int>> ChangePassStudentCode(string studentcode, UserModel userModel)
         {
             if (studentcode != userModel.UserStudentCode)

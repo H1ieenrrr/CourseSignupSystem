@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CourseSignupSystem.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20220914042430_allTabl03")]
-    partial class allTabl03
+    [Migration("20220917023958_allTable01")]
+    partial class allTable01
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -381,20 +381,20 @@ namespace CourseSignupSystem.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("UserStudentCode")
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)");
 
                     b.Property<string>("UserSurname")
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
 
                     b.Property<string>("UserTaxCode")
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)");
 
                     b.Property<string>("UserTeacherCode")
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)");
 
                     b.HasKey("UserId");
 

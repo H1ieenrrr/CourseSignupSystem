@@ -10,6 +10,9 @@ namespace CourseSignupSystem.Models
         [Key]
         public int CourseId { get; set; }
 
+        [NotMapped]
+        public string Course { get; set; }
+
         [Display(Name = "Mã Khóa")]
         [StringLength(30)]
         public string CourseCode { get; set; }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -26,16 +27,19 @@ namespace CourseSignupSystem.Models
         [StringLength(30)]
         public string UserFisrtName { get; set; }
 
+        [NotMapped]
+        public string User { get; set; }
+
         [Display(Name = "Mã Giảng Viên")]
-        [StringLength(20)]
+        [Column(TypeName = "varchar(20)"), MaxLength(50)]
         public string UserTeacherCode { get; set; }
 
         [Display(Name = "Mã Số Thuế")]
-        [StringLength(20)]
+        [Column(TypeName = "varchar(20)"), MaxLength(50)]
         public string UserTaxCode { get; set; }
 
         [Display(Name = "Mã Học Viên")]
-        [StringLength(20)]
+        [Column(TypeName = "varchar(20)"), MaxLength(50)]
         public string UserStudentCode { get; set; }
 
         [Display(Name = "Email")]
@@ -66,6 +70,9 @@ namespace CourseSignupSystem.Models
         [Display(Name = "Hình Ảnh Đại Diện")]
         [Column(TypeName = "varchar(200)"), MaxLength(100)]
         public string UserImg { get; set; }
+
+        [NotMapped]
+        public IFormFile UploadImg { get; set; }
 
         [Display(Name = "Lớp Học")]
         [StringLength(20)]

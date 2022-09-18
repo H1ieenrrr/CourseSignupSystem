@@ -14,7 +14,9 @@ namespace CourseSignupSystem.Migrations
                     CourseId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     CourseCode = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: true),
-                    CourseName = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: true)
+                    CourseName = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: true),
+                    CourseStartTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    CourseEndTime = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -97,8 +99,9 @@ namespace CourseSignupSystem.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     UserSurname = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true),
                     UserFisrtName = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: true),
-                    UserTaxCode = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true),
-                    UserStudentCode = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true),
+                    UserTeacherCode = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: true),
+                    UserTaxCode = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: true),
+                    UserStudentCode = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: true),
                     UserEmail = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UserPhone = table.Column<string>(type: "varchar(15)", maxLength: 15, nullable: true),
                     UserAddress = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
