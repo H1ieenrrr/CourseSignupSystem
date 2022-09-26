@@ -1,11 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "7rcyErOg2xRoSqqF4UeK7y4DLN/CE5Q3i5kJj0pd2puvlbKqYe3n7z0+kx7mMzFcp0BUdr43X0Lzd7VaoplYNQ==",
+  "dgSpecHash": "5JefN+AMWnFfjJx4Kyr3d2CVGCBreHJOnnt3HQ167OismIbAgYNx+laNDUAbD/wiWEVQEAXuiF2tNgE84y/6Rw==",
   "success": true,
   "projectFilePath": "C:\\Users\\Tan Hien\\OneDrive\\Documents\\Intern\\AltaSoftware\\BaiTap\\Project03\\CourseSignupSystem\\CourseSignupSystem\\CourseSignupSystem.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Tan Hien\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\Tan Hien\\.nuget\\packages\\microsoft.aspnetcore.authentication.jwtbearer\\5.0.17\\microsoft.aspnetcore.authentication.jwtbearer.5.0.17.nupkg.sha512",
+    "C:\\Users\\Tan Hien\\.nuget\\packages\\microsoft.aspnetcore.jsonpatch\\5.0.17\\microsoft.aspnetcore.jsonpatch.5.0.17.nupkg.sha512",
+    "C:\\Users\\Tan Hien\\.nuget\\packages\\microsoft.aspnetcore.mvc.newtonsoftjson\\5.0.17\\microsoft.aspnetcore.mvc.newtonsoftjson.5.0.17.nupkg.sha512",
     "C:\\Users\\Tan Hien\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
     "C:\\Users\\Tan Hien\\.nuget\\packages\\microsoft.data.sqlclient\\2.0.1\\microsoft.data.sqlclient.2.0.1.nupkg.sha512",
     "C:\\Users\\Tan Hien\\.nuget\\packages\\microsoft.data.sqlclient.sni.runtime\\2.0.1\\microsoft.data.sqlclient.sni.runtime.2.0.1.nupkg.sha512",
@@ -38,6 +40,7 @@
     "C:\\Users\\Tan Hien\\.nuget\\packages\\microsoft.win32.registry\\4.7.0\\microsoft.win32.registry.4.7.0.nupkg.sha512",
     "C:\\Users\\Tan Hien\\.nuget\\packages\\microsoft.win32.systemevents\\4.7.0\\microsoft.win32.systemevents.4.7.0.nupkg.sha512",
     "C:\\Users\\Tan Hien\\.nuget\\packages\\newtonsoft.json\\12.0.3\\newtonsoft.json.12.0.3.nupkg.sha512",
+    "C:\\Users\\Tan Hien\\.nuget\\packages\\newtonsoft.json.bson\\1.0.2\\newtonsoft.json.bson.1.0.2.nupkg.sha512",
     "C:\\Users\\Tan Hien\\.nuget\\packages\\runtime.native.system\\4.3.0\\runtime.native.system.4.3.0.nupkg.sha512",
     "C:\\Users\\Tan Hien\\.nuget\\packages\\swashbuckle.aspnetcore\\5.6.3\\swashbuckle.aspnetcore.5.6.3.nupkg.sha512",
     "C:\\Users\\Tan Hien\\.nuget\\packages\\swashbuckle.aspnetcore.swagger\\5.6.3\\swashbuckle.aspnetcore.swagger.5.6.3.nupkg.sha512",

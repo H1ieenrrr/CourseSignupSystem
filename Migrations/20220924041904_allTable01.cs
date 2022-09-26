@@ -50,6 +50,41 @@ namespace CourseSignupSystem.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "ScheduleHoliday",
+                columns: table => new
+                {
+                    ScheduleHolidayId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ScheduleHolidayName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
+                    ScheduleHolidayReason = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
+                    ScheduleHolidayStartDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ScheduleHolidayEndDate = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ScheduleHoliday", x => x.ScheduleHolidayId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ScoreOralTests",
+                columns: table => new
+                {
+                    ScoreOralTestId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ScoreOralTestFisrt = table.Column<float>(type: "real", nullable: false),
+                    ScoreOralTestSecond = table.Column<float>(type: "real", nullable: false),
+                    ScoreOralTestThird = table.Column<float>(type: "real", nullable: false),
+                    ScoreOralTestFourth = table.Column<float>(type: "real", nullable: false),
+                    ScoreOralTestFifth = table.Column<float>(type: "real", nullable: false),
+                    ScoreFinalFisrt = table.Column<float>(type: "real", nullable: false),
+                    ScoreFinalSecond = table.Column<float>(type: "real", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ScoreOralTests", x => x.ScoreOralTestId);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "ScoreType",
                 columns: table => new
                 {
@@ -61,6 +96,33 @@ namespace CourseSignupSystem.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_ScoreType", x => x.ScoreTypeId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Class",
+                columns: table => new
+                {
+                    ClassId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ClassCourse = table.Column<int>(type: "int", nullable: false),
+                    ClassCode = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true),
+                    ClassName = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true),
+                    ClassSchoolYear = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true),
+                    ClassDescription = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
+                    ClassCourseName = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: true),
+                    ClassQuantity = table.Column<int>(type: "int", nullable: false),
+                    ClassStatus = table.Column<bool>(type: "bit", nullable: false),
+                    ClassTuition = table.Column<double>(type: "float", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Class", x => x.ClassId);
+                    table.ForeignKey(
+                        name: "FK_Class_Course_ClassCourse",
+                        column: x => x.ClassCourse,
+                        principalTable: "Course",
+                        principalColumn: "CourseId",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -92,6 +154,35 @@ namespace CourseSignupSystem.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "ScoreDetails",
+                columns: table => new
+                {
+                    ScoreDetailId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ScoreClassId = table.Column<int>(type: "int", nullable: false),
+                    ScoreStudentName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
+                    ScoreSubjectName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
+                    ScoreDetailOral = table.Column<int>(type: "int", nullable: false),
+                    ScoreDetailMediumScore = table.Column<float>(type: "real", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ScoreDetails", x => x.ScoreDetailId);
+                    table.ForeignKey(
+                        name: "FK_ScoreDetails_Class_ScoreClassId",
+                        column: x => x.ScoreClassId,
+                        principalTable: "Class",
+                        principalColumn: "ClassId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_ScoreDetails_ScoreOralTests_ScoreDetailOral",
+                        column: x => x.ScoreDetailOral,
+                        principalTable: "ScoreOralTests",
+                        principalColumn: "ScoreOralTestId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "User",
                 columns: table => new
                 {
@@ -109,17 +200,24 @@ namespace CourseSignupSystem.Migrations
                     UserBirthday = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UserParentName = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     UserImg = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: true),
-                    UserClass = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true),
+                    UserClass = table.Column<int>(type: "int", nullable: false),
                     UserMainSubject = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     UserParttimeSubject = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     UserPassword = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: true),
                     UserRole = table.Column<int>(type: "int", nullable: false),
                     UserBlock = table.Column<bool>(type: "bit", nullable: false),
-                    IsDelete = table.Column<bool>(type: "bit", nullable: false)
+                    IsDelete = table.Column<bool>(type: "bit", nullable: false),
+                    classModelClassId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_User", x => x.UserId);
+                    table.ForeignKey(
+                        name: "FK_User_Class_classModelClassId",
+                        column: x => x.classModelClassId,
+                        principalTable: "Class",
+                        principalColumn: "ClassId",
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_User_Role_UserRole",
                         column: x => x.UserRole,
@@ -138,6 +236,7 @@ namespace CourseSignupSystem.Migrations
                     ScoreType = table.Column<int>(type: "int", nullable: false),
                     ScoreCourse = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true),
                     ScoreSubjectName = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true),
+                    ScoreTypeName = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true),
                     ScoreQuantity = table.Column<int>(type: "int", nullable: false),
                     ScoreQuantityRequired = table.Column<int>(type: "int", nullable: false)
                 },
@@ -155,40 +254,6 @@ namespace CourseSignupSystem.Migrations
                         column: x => x.ScoreSubjectId,
                         principalTable: "Subject",
                         principalColumn: "SubjectId",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Class",
-                columns: table => new
-                {
-                    ClassId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    ClassCode = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true),
-                    ClassName = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true),
-                    ClassSchoolYear = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true),
-                    ClassDescription = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
-                    ClassCourseName = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: true),
-                    ClassQuantity = table.Column<int>(type: "int", nullable: false),
-                    ClassStatus = table.Column<bool>(type: "bit", nullable: false),
-                    ClassTuition = table.Column<double>(type: "float", nullable: false),
-                    ClassUser = table.Column<int>(type: "int", nullable: false),
-                    courseModelCourseId = table.Column<int>(type: "int", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Class", x => x.ClassId);
-                    table.ForeignKey(
-                        name: "FK_Class_Course_courseModelCourseId",
-                        column: x => x.courseModelCourseId,
-                        principalTable: "Course",
-                        principalColumn: "CourseId",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Class_User_ClassUser",
-                        column: x => x.ClassUser,
-                        principalTable: "User",
-                        principalColumn: "UserId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -222,13 +287,70 @@ namespace CourseSignupSystem.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Schedule",
+                name: "RegisterClass",
+                columns: table => new
+                {
+                    RegisterClassId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    RegisterUser = table.Column<int>(type: "int", nullable: false),
+                    RegisterClassCourse = table.Column<int>(type: "int", nullable: false),
+                    RegisterClassCourseName = table.Column<string>(type: "nvarchar(40)", maxLength: 40, nullable: true),
+                    RegistClassDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    RegisterClassDescription = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    RegisterClassTuition = table.Column<double>(type: "float", nullable: false),
+                    RegisterClassStudentCode = table.Column<string>(type: "nvarchar(40)", maxLength: 40, nullable: true),
+                    RegisterClassStudentName = table.Column<string>(type: "nvarchar(40)", maxLength: 40, nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_RegisterClass", x => x.RegisterClassId);
+                    table.ForeignKey(
+                        name: "FK_RegisterClass_User_RegisterUser",
+                        column: x => x.RegisterUser,
+                        principalTable: "User",
+                        principalColumn: "UserId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ScheduleStudent",
+                columns: table => new
+                {
+                    ScheduleStudentId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ScheduleUser = table.Column<int>(type: "int", nullable: false),
+                    ScheduleSubject = table.Column<int>(type: "int", nullable: false),
+                    ScheduleClassId = table.Column<int>(type: "int", nullable: false),
+                    ScheduleStudentCode = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
+                    ScheduleStudentName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
+                    ScheduleClassName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
+                    ScheduleSubjectName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
+                    ScheduleRoom = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
+                    ScheduleOn = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ScheduleStartDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ScheduleEndDate = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ScheduleStudent", x => x.ScheduleStudentId);
+                    table.ForeignKey(
+                        name: "FK_ScheduleStudent_User_ScheduleUser",
+                        column: x => x.ScheduleUser,
+                        principalTable: "User",
+                        principalColumn: "UserId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ScheduleTeacher",
                 columns: table => new
                 {
                     ScheduleId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     ScheduleUser = table.Column<int>(type: "int", nullable: false),
                     ScheduleSubject = table.Column<int>(type: "int", nullable: false),
+                    ScheduleClassId = table.Column<int>(type: "int", nullable: false),
+                    ScheduleTeacherCode = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
                     ScheduleTeacherName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
                     ScheduleClassName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
                     ScheduleSubjectName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
@@ -237,19 +359,20 @@ namespace CourseSignupSystem.Migrations
                     ScheduleOn = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ScheduleStartDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ScheduleEndDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Schedule = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    Schedule = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    subjectModelSubjectId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Schedule", x => x.ScheduleId);
+                    table.PrimaryKey("PK_ScheduleTeacher", x => x.ScheduleId);
                     table.ForeignKey(
-                        name: "FK_Schedule_Subject_ScheduleSubject",
-                        column: x => x.ScheduleSubject,
+                        name: "FK_ScheduleTeacher_Subject_subjectModelSubjectId",
+                        column: x => x.subjectModelSubjectId,
                         principalTable: "Subject",
                         principalColumn: "SubjectId",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Schedule_User_ScheduleUser",
+                        name: "FK_ScheduleTeacher_User_ScheduleUser",
                         column: x => x.ScheduleUser,
                         principalTable: "User",
                         principalColumn: "UserId",
@@ -257,15 +380,9 @@ namespace CourseSignupSystem.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Class_ClassUser",
+                name: "IX_Class_ClassCourse",
                 table: "Class",
-                column: "ClassUser",
-                unique: true);
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Class_courseModelCourseId",
-                table: "Class",
-                column: "courseModelCourseId");
+                column: "ClassCourse");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Receipts_ReceiptsStudentId",
@@ -273,14 +390,24 @@ namespace CourseSignupSystem.Migrations
                 column: "ReceiptsStudentId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Schedule_ScheduleSubject",
-                table: "Schedule",
-                column: "ScheduleSubject");
+                name: "IX_RegisterClass_RegisterUser",
+                table: "RegisterClass",
+                column: "RegisterUser");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Schedule_ScheduleUser",
-                table: "Schedule",
+                name: "IX_ScheduleStudent_ScheduleUser",
+                table: "ScheduleStudent",
                 column: "ScheduleUser");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ScheduleTeacher_ScheduleUser",
+                table: "ScheduleTeacher",
+                column: "ScheduleUser");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ScheduleTeacher_subjectModelSubjectId",
+                table: "ScheduleTeacher",
+                column: "subjectModelSubjectId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Score_ScoreSubjectId",
@@ -293,6 +420,16 @@ namespace CourseSignupSystem.Migrations
                 column: "ScoreType");
 
             migrationBuilder.CreateIndex(
+                name: "IX_ScoreDetails_ScoreClassId",
+                table: "ScoreDetails",
+                column: "ScoreClassId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ScoreDetails_ScoreDetailOral",
+                table: "ScoreDetails",
+                column: "ScoreDetailOral");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Subject_SubjectCourse",
                 table: "Subject",
                 column: "SubjectCourse");
@@ -303,6 +440,11 @@ namespace CourseSignupSystem.Migrations
                 column: "SubjectDepartment");
 
             migrationBuilder.CreateIndex(
+                name: "IX_User_classModelClassId",
+                table: "User",
+                column: "classModelClassId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_User_UserRole",
                 table: "User",
                 column: "UserRole");
@@ -311,16 +453,25 @@ namespace CourseSignupSystem.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Class");
-
-            migrationBuilder.DropTable(
                 name: "Receipts");
 
             migrationBuilder.DropTable(
-                name: "Schedule");
+                name: "RegisterClass");
+
+            migrationBuilder.DropTable(
+                name: "ScheduleHoliday");
+
+            migrationBuilder.DropTable(
+                name: "ScheduleStudent");
+
+            migrationBuilder.DropTable(
+                name: "ScheduleTeacher");
 
             migrationBuilder.DropTable(
                 name: "Score");
+
+            migrationBuilder.DropTable(
+                name: "ScoreDetails");
 
             migrationBuilder.DropTable(
                 name: "User");
@@ -332,13 +483,19 @@ namespace CourseSignupSystem.Migrations
                 name: "Subject");
 
             migrationBuilder.DropTable(
+                name: "ScoreOralTests");
+
+            migrationBuilder.DropTable(
+                name: "Class");
+
+            migrationBuilder.DropTable(
                 name: "Role");
 
             migrationBuilder.DropTable(
-                name: "Course");
+                name: "Department");
 
             migrationBuilder.DropTable(
-                name: "Department");
+                name: "Course");
         }
     }
 }

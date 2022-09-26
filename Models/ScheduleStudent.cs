@@ -4,11 +4,11 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CourseSignupSystem.Models
 {
-    [Table("ScheduleTeacher")]
-    public class ScheduleModel
+    [Table("ScheduleStudent")]
+    public class ScheduleStudent
     {
         [Key]
-        public int ScheduleId { get; set; }
+        public int ScheduleStudentId { get; set; }
 
         [ForeignKey("userModel")]
         public int ScheduleUser { get; set; }
@@ -18,12 +18,12 @@ namespace CourseSignupSystem.Models
         public int ScheduleClassId { get; set; }
 
         [StringLength(50)]
-        [Display(Name = "Mã Giáo Viên")]
-        public string ScheduleTeacherCode { get; set; }
+        [Display(Name = "Mã Học Sinh")]
+        public string ScheduleStudentCode { get; set; }
 
         [StringLength(50)]
-        [Display(Name = "Tên Giáo Viên")]
-        public string ScheduleTeacherName { get; set; }
+        [Display(Name = "Tên Học SInh")]
+        public string ScheduleStudentName { get; set; }
 
         [StringLength(50)]
         [Display(Name = "Tên Lớp")]
@@ -37,9 +37,6 @@ namespace CourseSignupSystem.Models
         [Display(Name = "Phòng Học")]
         public string ScheduleRoom { get; set; }
 
-        [Display(Name = "Giờ Học")]
-        public DateTime ScheduleTime { get; set; }
-
         [Display(Name = "Thứ")]
         public DateTime ScheduleOn { get; set; }
 
@@ -49,12 +46,9 @@ namespace CourseSignupSystem.Models
         [Display(Name = "Ngày Kết Thúc")]
         public DateTime ScheduleEndDate { get; set; }
 
-        [Display(Name = "Thời Gian")]
-        public DateTime Schedule { get; set; }
+ 
 
 
         public UserModel userModel { get; set; }
-        public SubjectModel subjectModel { get; set; }
-
     }
 }

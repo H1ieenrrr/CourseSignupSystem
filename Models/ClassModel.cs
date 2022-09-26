@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CourseSignupSystem.Models
@@ -9,8 +10,8 @@ namespace CourseSignupSystem.Models
         [Key]
         public int ClassId { get; set; }
 
-        //[ForeignKey("courseModel")]
-        //public int ClassCourse { get; set; }
+        [ForeignKey("courseModel")]
+        public int ClassCourse { get; set; }
 
         [StringLength(20)]
         [Display(Name = "Mã Lớp")]
@@ -41,10 +42,10 @@ namespace CourseSignupSystem.Models
         [Display(Name = "Học Phí")]
         public double ClassTuition { get; set; }
 
-        [ForeignKey("userModel")]
-        public int ClassUser { get; set; }
+        //[ForeignKey("userModel")]
+        //public int ClassUser { get; set; }
 
-        public virtual UserModel userModel { get; set; }
+        public ICollection<UserModel> userModel { get; set; }
 
         public CourseModel courseModel { get; set; }
     }

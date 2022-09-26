@@ -3,6 +3,7 @@ using CourseSignupSystem.Interfaces;
 using CourseSignupSystem.Models;
 using CourseSignupSystem.Services.Authentication;
 using CourseSignupSystem.Services.CMS.Administration;
+using CourseSignupSystem.Services.LandingPage;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -35,7 +36,10 @@ namespace CourseSignupSystem
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
+            services.AddControllersWithViews()
+                 .AddNewtonsoftJson(options =>
+                 options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+             );
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
@@ -45,7 +49,7 @@ namespace CourseSignupSystem
                     options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddTransient<IEncode, EncodeHelper>();
-            services.AddTransient<IAuthentication, AuthenticationSvc>();
+            services.AddTransient<IStudent, StudentSvc>();
             services.AddTransient<IAdmin, AdminSvc>();
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)

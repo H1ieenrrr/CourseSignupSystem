@@ -15,6 +15,7 @@ CREATE FUNCTION func_AutoNextCode(@lastUserId varchar(6), @prefix varchar(3), @s
 END
 go
 
+
 Create trigger tr_MaSinhVien on [User]
 for insert
 as

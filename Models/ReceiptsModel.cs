@@ -21,8 +21,7 @@ namespace CourseSignupSystem.Models
         [ForeignKey("userModel")]
         public int ReceiptsStudentId { get; set; }
 
-        //[ForeignKey("classModel")]
-        //public int ReceiptsClassId { get; set; }
+        
 
         [Display(Name = "Lớp Học")]
         [StringLength(30)]

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -48,7 +49,6 @@ namespace CourseSignupSystem.Models
 
         [Column(TypeName = "varchar(15)"), MaxLength(15)]
         [DataType(DataType.PhoneNumber)]
-        //[RegularExpression(@"^\(?([0-9]{3})[-. ]?([0-9]{4})[-. ]?([0-9]{3})$", ErrorMessage = "Số Điện Thoại Không Hợp Lệ")]
         public string UserPhone { get; set; }
 
         [Display(Name = "Địa Chỉ")]
@@ -75,8 +75,8 @@ namespace CourseSignupSystem.Models
         public IFormFile UploadImg { get; set; }
 
         [Display(Name = "Lớp Học")]
-        [StringLength(20)]
-        public string UserClass { get; set; }
+        //[ForeignKey("classModel")]
+        public int UserClass { get; set; }
 
         [Display(Name = "Môn Dạy Chính")]
         [StringLength(200)]
@@ -105,6 +105,6 @@ namespace CourseSignupSystem.Models
 
         public RoleModel roleModel { get; set; }
 
-        public virtual ClassModel classModel { get; set; }
+        public ClassModel classModel { get; set; }
     }
 }

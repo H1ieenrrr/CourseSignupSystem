@@ -25,6 +25,14 @@ namespace CourseSignupSystem.Models
 
         public DbSet<ScoreModel> ScoreModels { get; set; }
         public DbSet<ScoreTypeModel> ScoreTypesModels { get; set; }
+        public DbSet<ScoreDetail> ScoreDetails { get; set; }
+        public DbSet<ScoreOralTest> ScoreOralTests { get; set; }
+
+        public DbSet<ScheduleHoliday> ScheduleHolidays { get; set; }
+
+        public DbSet<ScheduleStudent> ScheduleStudents { get; set; }
+        public DbSet<RegisterClass> registerClasses { get; set; }
+        public DbSet<TurnoverModel> TurnoverModels { get; set; }
 
     }
 }

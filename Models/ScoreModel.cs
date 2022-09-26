@@ -24,14 +24,21 @@ namespace CourseSignupSystem.Models
         [StringLength(20)]
         public string ScoreSubjectName { get; set; }
 
+        [Display(Name = "Tên Loại Điểm")]
+        [StringLength(20)]
+        public string ScoreTypeName { get; set; }
+
         [Display(Name = "Số Cột Điểm")]
         public int ScoreQuantity { get; set; }
 
         [Display(Name = "Số Cột Điểm Bắt Buộc")]
         public int ScoreQuantityRequired { get; set; }
-   
+
+
         public ScoreTypeModel scoreTypeModel { get; set; }
 
         public SubjectModel subjectModel { get; set; }
+
+
     }
 }
