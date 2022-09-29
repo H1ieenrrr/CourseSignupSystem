@@ -101,6 +101,8 @@ namespace CourseSignupSystem.Models
 
         public bool UserBlock { get; set; }
 
+        public bool UserStatus { get; set; }
+
         public bool IsDelete { get; set; }
 
         public RoleModel roleModel { get; set; }

@@ -35,3 +35,13 @@ as
 		UPDATE [User] SET UserTeacherCode = dbo.func_AutoNextCode(@lastUserId,'GV',6) WHERE UserTeacherCode = ''
 end
 
+go
+
+CREATE TRIGGER trg_TotalTuition
+   ON  [Turnover]
+   AFTER INSERT,DELETE,UPDATE
+AS 
+BEGIN
+    UPDATE dbo.Turnover SET TurnoverTotalTuition=(SELECT SUM(TurnoverTuition) FROM dbo.Turnover)
+END
+GO

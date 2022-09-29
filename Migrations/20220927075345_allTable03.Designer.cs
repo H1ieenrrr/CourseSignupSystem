@@ -4,14 +4,16 @@ using CourseSignupSystem.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CourseSignupSystem.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20220927075345_allTable03")]
+    partial class allTable03
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -616,9 +618,6 @@ namespace CourseSignupSystem.Migrations
 
                     b.Property<int>("UserRole")
                         .HasColumnType("int");
-
-                    b.Property<bool>("UserStatus")
-                        .HasColumnType("bit");
 
                     b.Property<string>("UserStudentCode")
                         .HasMaxLength(50)

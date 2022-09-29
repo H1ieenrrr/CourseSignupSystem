@@ -33,6 +33,8 @@ namespace CourseSignupSystem.Models
 
         public double TurnoverTuition { get; set; }
 
+        public double TurnoverTotalTuition { get; set; }
+
         [Display(Name = "Tên Giáo Viên")]
         [StringLength(50)]
         public string TurnoverTeacher { get; set; }
