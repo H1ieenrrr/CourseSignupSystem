@@ -62,6 +62,28 @@ namespace CourseSignupSystem.Controllers
             }
             return Ok(1);
         }
+
+        [HttpDelete]
+        [Route("DeleteRole/{id}")]
+        public async Task<ActionResult<int>> DeleteRole(int id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            try
+            {
+                await _adminSvc.DeleteRole(id);
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(-1);
+            }
+
+            return Ok(1);
+        }
         #endregion
 
         #region Student

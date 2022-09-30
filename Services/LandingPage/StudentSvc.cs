@@ -42,9 +42,34 @@ namespace CourseSignupSystem.Services.LandingPage
                 registerClass.RegisterClassTuition = classs.ClassTuition;
                 registerClass.RegisterClassDescription = classs.ClassDescription;
 
-                await _context.AddAsync(registerClass);
-                await _context.SaveChangesAsync();
-                ret = registerClass.RegisterClassId;
+                if(student != null)
+                {
+                    if(classs != null)
+                    {
+                        if(classs.ClassQuantityPresent < classs.ClassQuantity)
+                        {
+                            classs.ClassQuantityPresent += 1; 
+                            _context.Update(classs);
+                            await _context.SaveChangesAsync();
+                            
+                            await _context.AddAsync(registerClass);
+                            await _context.SaveChangesAsync();
+                            ret = registerClass.RegisterClassId;
+                        }
+                        else
+                        {
+                            ret = 0;
+                        }
+                    }
+                    else
+                    {
+                        ret = 0;
+                    }
+                }
+                else
+                {
+                    ret = 0;
+                }
             }
             catch(Exception ex)
             {
