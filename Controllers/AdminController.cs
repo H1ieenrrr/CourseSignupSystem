@@ -1,6 +1,7 @@
 ﻿using CourseSignupSystem.Interfaces;
 using CourseSignupSystem.Models;
 using CourseSignupSystem.Models.ViewModel;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
@@ -10,6 +11,7 @@ using System.Threading.Tasks;
 
 namespace CourseSignupSystem.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class AdminController : ControllerBase
@@ -21,7 +23,7 @@ namespace CourseSignupSystem.Controllers
         }
 
         #region Role
-
+        
         [HttpGet]
         [Route("GetRole")]
         public async Task<ActionResult<IEnumerable<RoleModel>>> GetRole()

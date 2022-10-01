@@ -49,6 +49,7 @@ namespace CourseSignupSystem
                     options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddTransient<IEncode, EncodeHelper>();
+            services.AddTransient<IAuthentication, AuthenticationSvc>();
             services.AddTransient<IStudent, StudentSvc>();
             services.AddTransient<IAdmin, AdminSvc>();
 
