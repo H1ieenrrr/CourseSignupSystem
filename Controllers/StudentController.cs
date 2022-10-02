@@ -1,5 +1,6 @@
 ﻿using CourseSignupSystem.Interfaces;
 using CourseSignupSystem.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -20,6 +21,7 @@ namespace CourseSignupSystem.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Sinh Vien")]
         [Route("ListRegisterClass")]
         public async Task<ActionResult<IEnumerable<RegisterClass>>> ListRegisterClass()
         {
@@ -27,6 +29,7 @@ namespace CourseSignupSystem.Controllers
             return list;
         }
 
+        [Authorize(Roles = "Sinh Vien")]
         [HttpGet]
         [Route("RegisterClassId")]
         public async Task<ActionResult<IEnumerable<RegisterClass>>>RegisterClassId(RegisterClass registerClass)
@@ -36,6 +39,7 @@ namespace CourseSignupSystem.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Sinh Vien")]
         [Route("RegisterClass")]
         public async Task<ActionResult<int>> RegisterClass(RegisterClass registerClass)
         {

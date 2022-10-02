@@ -1,6 +1,7 @@
 ﻿using CourseSignupSystem.Interfaces;
 using CourseSignupSystem.Models;
 using CourseSignupSystem.Models.ViewModel;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -28,6 +29,7 @@ namespace CourseSignupSystem.Controllers
         }
 
         [HttpPost]
+        [AllowAnonymous]
         [Route("Login")]
         public async Task<IActionResult> Login(ViewLogin viewLogin)
         {
@@ -49,6 +51,7 @@ namespace CourseSignupSystem.Controllers
                             new Claim("FisrtName", user.UserFisrtName),
                             new Claim("SurName", user.UserSurname),
                             new Claim("Email", user.UserEmail),
+                            new Claim(ClaimTypes.Role , user.UserRoleName)
                     };
 
                     var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));
@@ -75,31 +78,32 @@ namespace CourseSignupSystem.Controllers
         }
 
 
-        [HttpGet]
-        [Route("UserEmail")]
-        public async Task<ActionResult<UserModel>> GetUserEmail(ViewLogin viewLogin)
-        {
-            var user = await _authentication.GetUserEmail(viewLogin);
-            return user;
-        }
+        //[HttpGet]
+        //[Route("UserEmail")]
+        //public async Task<ActionResult<UserModel>> GetUserEmail(ViewLogin viewLogin)
+        //{
+        //    var user = await _authentication.GetUserEmail(viewLogin);
+        //    return user;
+        //}
 
-        [HttpGet]
-        [Route("UserTeacherCode")]
-        public async Task<ActionResult<UserModel>> GetUserTeacherCode(ViewLogin viewLogin)
-        {
-            var user = await _authentication.GetUserTeacherCode(viewLogin);
-            return user;
-        }
+        //[HttpGet]
+        //[Route("UserTeacherCode")]
+        //public async Task<ActionResult<UserModel>> GetUserTeacherCode(ViewLogin viewLogin)
+        //{
+        //    var user = await _authentication.GetUserTeacherCode(viewLogin);
+        //    return user;
+        //}
 
-        [HttpGet]
-        [Route("UserStudentCode")]
-        public async Task<ActionResult<UserModel>> GetUserStudentCode(ViewLogin viewLogin)
-        {
-            var user = await _authentication.GetUserStudentCode(viewLogin);
-            return user;
-        }
+        //[HttpGet]
+        //[Route("UserStudentCode")]
+        //public async Task<ActionResult<UserModel>> GetUserStudentCode(ViewLogin viewLogin)
+        //{
+        //    var user = await _authentication.GetUserStudentCode(viewLogin);
+        //    return user;
+        //}
 
         [HttpPut("{email}")]
+        [Authorize(Roles = "Admin")]
         [Route("ChangePassAdmin")]
         public async Task<ActionResult<int>> ChangePass(string email, UserModel userModel)
         {
@@ -121,6 +125,7 @@ namespace CourseSignupSystem.Controllers
         }
 
         [HttpPut("{teachercode}")]
+        [Authorize(Roles = "Giang Vien")]
         [Route("ChangePassTeacher")]
         public async Task<ActionResult<int>> ChangePassTeacherCode(string teachercode, UserModel userModel)
         {
@@ -142,6 +147,7 @@ namespace CourseSignupSystem.Controllers
         }
 
         [HttpPut("{studentcode}")]
+        [Authorize(Roles = "Sinh Vien")]
         [Route("ChangePassStudent")] 
         public async Task<ActionResult<int>> ChangePassStudentCode(string studentcode, UserModel userModel)
         {

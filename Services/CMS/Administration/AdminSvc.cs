@@ -31,6 +31,30 @@ namespace CourseSignupSystem.Services.CMS.Administration
             return user;
         }
 
+
+        public async Task<int> AddAdmin(UserModel userModel)
+        {
+            int ret = 0;
+            try
+            {
+                userModel.UserBlock = false;
+                userModel.UserPassword = _enCode.Encode(userModel.UserPassword);
+                userModel.IsDelete = true;
+                userModel.UserRole = 1;
+                var role = await _context.RoleModels.FindAsync(userModel.UserRole);
+
+                userModel.UserRoleName = role.RoleName;
+
+                await _context.AddAsync(userModel);
+                await _context.SaveChangesAsync();
+                ret = userModel.UserId;
+            }
+            catch (Exception ex)
+            {
+                ret = 0;
+            }
+            return ret;
+        }
         #region Role
         public async Task<List<RoleModel>> GetRole()
         {
@@ -115,7 +139,7 @@ namespace CourseSignupSystem.Services.CMS.Administration
             try
             {
                 var classs = await _context.ClassModels.FindAsync(userModel.UserClass);
-
+                
                 if(classs != null)
                 {
                     if (classs.ClassQuantityPresent < classs.ClassQuantity)
@@ -128,6 +152,9 @@ namespace CourseSignupSystem.Services.CMS.Administration
                         userModel.UserPassword = _enCode.Encode(userModel.UserPassword);
                         userModel.IsDelete = true;
                         userModel.UserRole = 3;
+                        var role = await _context.RoleModels.FindAsync(userModel.UserRole);
+
+                        userModel.UserRoleName = role.RoleName;
 
                         if (file != null)
                         {
@@ -283,8 +310,10 @@ namespace CourseSignupSystem.Services.CMS.Administration
                 userModel.UserPassword = _enCode.Encode(userModel.UserPassword);
                 userModel.IsDelete = true;
                 userModel.UserRole = 2;
+                var role = await _context.RoleModels.FindAsync(userModel.UserRole);
 
-                
+                userModel.UserRoleName = role.RoleName;
+
                 if (file != null)
                 {
                     if (file.Length > 0)
